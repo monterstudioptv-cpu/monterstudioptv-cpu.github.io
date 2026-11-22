@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="vi" data-root="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PTV · Phần mềm cho người làm sự kiện</title>
+<meta name="description" content="Hệ sinh thái phần mềm của PTV cho âm thanh, đồ họa trực tiếp và màn hình sân khấu sự kiện. Dùng thử miễn phí, mua key qua Zalo.">
+<meta property="og:title" content="PTV · Phần mềm cho người làm sự kiện">
+<meta property="og:image" content="apps/event-sound-control/img/console.png">
+<link rel="icon" href="assets/img/esc-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* hero: chữ bên trái, ứng dụng nổi bật bên phải */
+.hero{padding:80px 0 0}
+.hero .wrap{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:center}
+.hero h1{font-weight:600;font-size:52px;line-height:1.1;letter-spacing:-.02em;margin:20px 0 20px;text-wrap:balance}
+.hero .lead{color:var(--text2);font-size:18px;margin:0 0 32px;max-width:32em}
+.acts{display:flex;gap:12px;flex-wrap:wrap}
+.feature{display:block;text-decoration:none;background:var(--s1);border:1px solid var(--line2);border-radius:18px;overflow:hidden;transition:border-color .15s}
+.feature:hover{border-color:rgb(240 164 58 / .5)}
+.feature .shot{border-bottom:1px solid var(--line)}
+.feature .cap{display:flex;align-items:center;gap:14px;padding:16px 20px}
+.feature .cap b{font-weight:500;display:block}
+.feature .cap span{color:var(--muted);font-size:13px}
+.feature .cap .i{margin-left:auto;color:var(--text2)}
+
+/* danh mục */
+.cat-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.cat-head .head{margin:0}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{background:var(--s1);border:1px solid var(--line);color:var(--text2);font:500 14px Montserrat,sans-serif;padding:8px 14px;border-radius:999px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{display:flex;flex-direction:column;text-decoration:none;background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);padding:24px;min-height:280px;transition:border-color .15s,background .15s}
+.card:hover{border-color:color-mix(in srgb,var(--c) 45%,transparent);background:#1e1e21}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.card h3{margin:0 0 6px;font-weight:600;font-size:19px}
+.card p{margin:0;color:var(--text2);font-size:15px}
+.card-meta{display:flex;flex-wrap:wrap;gap:4px 14px;margin:16px 0 0;color:var(--muted);font-size:13px}
+.card-go{margin-top:auto;padding-top:20px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--text)}
+.card.soon .card-go{color:var(--text2)}
+.card.soon h3{color:var(--text2)}
+
+/* một đêm sự kiện */
+.show{background:var(--s1);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.clock{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.clock div{padding:14px 24px;font:500 13px var(--mono);color:var(--muted);border-left:1px solid var(--line)}
+.clock div:first-child{border-left:0}
+.clock b{color:var(--amber);font-weight:500;margin-right:8px}
+.lanes{display:grid;grid-template-columns:repeat(4,1fr)}
+.lane{padding:24px;border-left:1px solid var(--line)}
+.lane:first-child{border-left:0}
+.lane h4{margin:0 0 8px;font-weight:600;font-size:17px}
+.lane p{margin:0 0 16px;color:var(--text2);font-size:14px}
+.chip{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 10px 6px 6px;border-radius:8px;background:var(--s2);border:1px solid var(--line);margin-top:6px;width:fit-content}
+.chip i{width:8px;height:8px;border-radius:2px;background:var(--c);margin-left:4px}
+.chip.soon{color:var(--muted)}
+
+/* cách mua chung */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:s}
+.step{background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);padding:24px}
+.step::before{counter-increment:s;content:'0' counter(s);display:block;font:500 13px var(--mono);color:var(--amber);margin-bottom:16px}
+.step h4{margin:0 0 6px;font-weight:500;font-size:17px}
+.step p{margin:0;color:var(--text2);font-size:15px}
+.note{margin:20px 0 0;color:var(--muted);font-size:14px}
+
+/* giới thiệu + kết */
+.about{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start}
+.about .head{margin:0}
+.about .txt p{color:var(--text2);margin:0 0 16px;font-size:17px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.facts div{border-top:1px solid var(--line2);padding-top:12px}
+.facts b{display:block;font:600 28px Montserrat,sans-serif;font-variant-numeric:tabular-nums}
+.facts span{color:var(--muted);font-size:13px}
+.end{margin-top:112px;padding:56px 48px;background:var(--s1);border:1px solid var(--line);border-radius:20px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.end h2{font-weight:600;font-size:30px;line-height:1.2;margin:0 0 8px}
+.end p{margin:0;color:var(--text2)}
+
+@media (max-width:1000px){
+  .hero .wrap,.about{grid-template-columns:1fr;gap:40px}
+  .grid{grid-template-columns:1fr 1fr}
+  .clock{display:none}
+  .lanes{grid-template-columns:1fr 1fr}
+  .lane:nth-child(3){border-left:0}
+  .lane:nth-child(n+3){border-top:1px solid var(--line)}
+  .steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .hero{padding-top:48px}
+  .hero h1{font-size:36px}
+  .grid,.lanes,.steps{grid-template-columns:1fr}
+  .lane{border-left:0;border-top:1px solid var(--line)}
+  .lane:first-child{border-top:0}
+  .end{grid-template-columns:1fr;padding:40px 24px}
+  .acts .btn{flex:1;justify-content:center}
+}
+</style>
+</head>
+<body data-page="home">
+<header id="top"></header>
+
+<main>
+<section class="hero" style="padding-top:80px">
+  <div class="wrap">
+    <div>
+      <span class="tape">Hệ sinh thái PTV</span>
+      <h1>Phần mềm cho người làm sự kiện</h1>
+      <p class="lead">Âm thanh, đồ họa trực tiếp, màn hình sân khấu. Mỗi ứng dụng làm tốt một việc trong buổi chạy show, cùng một cách mua key và một nơi hỗ trợ.</p>
+      <div class="acts">
+        <a class="btn btn-go" href="#ung-dung">Xem các ứng dụng</a>
+        <a class="btn btn-2 js-zalo" href="#"><span data-icon="msg"></span>Nhắn Zalo</a>
+      </div>
+    </div>
+    <a class="feature" href="apps/event-sound-control/">
+      <div class="shot"><img src="apps/event-sound-control/img/console.png" width="2580" height="1590" alt="PTVEventSoundControl đang chạy: khối GO, vùng Nhạc nền và Hiệu ứng, cột Kịch bản"></div>
+      <div class="cap">
+        <span class="appico sm"><img src="assets/img/esc-icon.png" alt="" width="96" height="96"></span>
+        <div><b>PTVEventSoundControl 4.2</b><span>Mới: giao diện Hậu trường · dùng thử 30 ngày</span></div>
+        <span data-icon="arrow"></span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section id="ung-dung">
+  <div class="wrap">
+    <div class="cat-head">
+      <div class="head">
+        <span class="tape">Ứng dụng</span>
+        <h2><span id="appCount">3</span> ứng dụng, thêm dần theo từng mùa sự kiện</h2>
+        <p>Ứng dụng đang bán có bản dùng thử miễn phí. Ứng dụng sắp ra mắt: bấm vào để nhận tin qua Zalo.</p>
+      </div>
+      <div class="filters" id="filters"></div>
+    </div>
+    <div class="grid" id="catalog"></div>
+  </div>
+</section>
+
+<section id="mot-dem">
+  <div class="wrap">
+    <div class="head">
+      <span class="tape">Một đêm sự kiện</span>
+      <h2>Mỗi khâu của buổi diễn có một công cụ</h2>
+      <p>Các ứng dụng chạy độc lập, nhưng được làm để đứng cạnh nhau trên cùng một bàn điều khiển.</p>
+    </div>
+    <div class="show">
+      <div class="clock"><div><b>16:00</b>chuẩn bị</div><div><b>18:00</b>đón khách</div><div><b>19:00</b>chương trình</div><div><b>20:30</b>văn nghệ</div></div>
+      <div class="lanes">
+        <div class="lane"><h4>Chuẩn bị</h4><p>Nạp nhạc theo buổi, cân âm lượng đều, chỉnh to dần nhỏ dần, nghe thử bằng tai nghe.</p>
+          <span class="chip" style="--c:#f0a43a"><i></i>EventSoundControl</span></div>
+        <div class="lane"><h4>Đón khách</h4><p>Nhạc nền nối tiếp tự chạy cả danh sách, chuyển bài chéo không khoảng lặng.</p>
+          <span class="chip" style="--c:#f0a43a"><i></i>EventSoundControl</span></div>
+        <div class="lane"><h4>Chương trình</h4><p>Bấm GO theo kịch bản cho từng tiết mục. Đồ họa tên, điểm số lên màn hình trực tiếp.</p>
+          <span class="chip" style="--c:#f0a43a"><i></i>EventSoundControl</span>
+          <span class="chip soon" style="--c:#e5484d"><i></i>Live Control · sắp ra mắt</span></div>
+        <div class="lane"><h4>Văn nghệ</h4><p>Lời bài hát chạy theo nhạc trên màn LED cho khán giả hát cùng.</p>
+          <span class="chip" style="--c:#f0a43a"><i></i>EventSoundControl</span>
+          <span class="chip soon" style="--c:#8b7cf6"><i></i>Lyrics · sắp ra mắt</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cach-mua">
+  <div class="wrap">
+    <div class="head">
+      <span class="tape">Cách mua</span>
+      <h2>Một cách mua cho mọi ứng dụng</h2>
+      <p>Không cần tạo tài khoản. Mỗi key gắn với một máy, gửi qua Zalo trong khoảng 15 phút.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><h4>Tải và dùng thử</h4><p>Cài ứng dụng trên máy chạy show, dùng đủ tính năng trong thời gian thử.</p></div>
+      <div class="step"><h4>Lấy mã máy</h4><p>Mở mục Bản quyền trong ứng dụng, bấm sao chép mã dạng <span class="mono">PTV-XXXX-…</span></p></div>
+      <div class="step"><h4>Chuyển khoản</h4><p>Chọn gói trong ứng dụng, quét mã QR đã điền sẵn số tiền và nội dung.</p></div>
+      <div class="step"><h4>Nhận key qua Zalo</h4><p>Dán key vào mục Bản quyền, bấm Kích hoạt là xong.</p></div>
+    </div>
+    <p class="note">Giá từng gói nằm ở trang của mỗi ứng dụng. Chi tiết và chính sách đổi máy: <a href="ho-tro/">trang Hỗ trợ</a>.</p>
+  </div>
+</section>
+
+<section id="gioi-thieu">
+  <div class="wrap about">
+    <div class="head">
+      <span class="tape">Giới thiệu</span>
+      <h2>Làm từ bàn điều khiển của những buổi diễn thật</h2>
+    </div>
+    <div class="txt">
+      <p>PTV là Phạm Thế Vũ, làm truyền thông và sự kiện ở Nha Trang. Mỗi ứng dụng ở đây bắt đầu từ một việc cần làm nhanh hơn, chắc hơn trong lúc chạy show.</p>
+      <p>Ứng dụng tiếng Việt, chạy được khi không có mạng, hỗ trợ trực tiếp qua Zalo với người viết ra nó.</p>
+      <div class="facts">
+        <div><b>30</b><span>ngày dùng thử</span></div>
+        <div><b>15'</b><span>nhận key sau chuyển khoản</span></div>
+        <div><b>1</b><span>nơi hỗ trợ cho mọi app</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="end">
+    <div>
+      <h2>Nhận tin khi có ứng dụng mới</h2>
+      <p>Nhắn Zalo <span class="mono">0979 836 981</span>, mỗi lần có ứng dụng mới sẽ báo bạn đầu tiên.</p>
+    </div>
+    <div class="acts"><a class="btn btn-go js-zalo" href="#"><span data-icon="msg"></span>Nhắn Zalo</a></div>
+  </div>
+</div>
+</main>
+
+<footer id="foot"></footer>
+<script src="assets/apps.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

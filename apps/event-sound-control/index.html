@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="vi" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PTVEventSoundControl · Phần mềm chạy nhạc sự kiện</title>
+<meta name="description" content="Chạy nhạc nền, hiệu ứng và kịch bản sự kiện bằng một nút GO. Chuyển bài chéo, cân âm lượng LUFS, dùng thử miễn phí 30 ngày. Windows 10/11.">
+<meta property="og:title" content="PTVEventSoundControl · Chạy nhạc sự kiện bằng một nút GO">
+<meta property="og:description" content="Nhạc nền, hiệu ứng, kịch bản trong một màn hình. Dùng thử 30 ngày, đủ tính năng.">
+<meta property="og:image" content="img/console.png">
+<link rel="icon" href="../../assets/img/esc-icon.png">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+.hero{padding:88px 0 0;text-align:center}
+.hero h1{font-weight:600;font-size:56px;line-height:1.1;letter-spacing:-.02em;margin:24px auto 20px;max-width:20ch;text-wrap:balance}
+.hero .lead{color:var(--text2);font-size:19px;max-width:40em;margin:0 auto 32px}
+.acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.meta{margin:20px 0 0;color:var(--muted);font-size:13px}
+.shot{margin:56px auto 0;max-width:1120px;border-radius:14px;border:1px solid var(--line2);overflow:hidden;background:var(--s1);box-shadow:0 30px 80px rgb(0 0 0 / .5)}
+
+.split{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:center;margin-bottom:64px}
+.split h3{font-weight:600;font-size:26px;line-height:1.25;margin:0 0 12px}
+.split p{color:var(--text2);margin:0 0 16px}
+.split .pic{border-radius:12px;border:1px solid var(--line2);overflow:hidden}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.feat{padding:28px 28px 32px 0;border-bottom:1px solid var(--line)}
+.feat:not(:nth-child(3n+1)){padding-left:28px;border-left:1px solid var(--line)}
+.feat .ic{display:flex;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;background:var(--s2);color:var(--text2);margin-bottom:16px}
+.feat h4{margin:0 0 6px;font-weight:500;font-size:17px}
+.feat p{margin:0;color:var(--text2);font-size:15px}
+
+.plans{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.plan{position:relative;display:flex;flex-direction:column;background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);padding:24px 20px 20px}
+.plan.hot{border-color:rgb(240 164 58 / .55);background:linear-gradient(#211c15,#1b1b1d)}
+.plan .tag{position:absolute;top:-12px;left:18px}
+.plan .nm{font-weight:500;font-size:15px;min-height:48px}
+.plan .pr{font:600 32px/1 Montserrat,sans-serif;font-variant-numeric:tabular-nums;margin:12px 0 4px;letter-spacing:-.01em}
+.plan .per{font-size:13px;color:var(--muted);min-height:21px}
+.plan .dur{margin:16px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:14px}
+.plan .joke{color:var(--muted);font-size:13px;line-height:1.5;margin:8px 0 20px;flex:1}
+.plan .btn{height:40px;justify-content:center;font-size:14px;width:100%}
+.note{margin:20px 0 0;color:var(--muted);font-size:14px}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:s}
+.step{background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);padding:24px}
+.step::before{counter-increment:s;content:'0' counter(s);display:block;font:500 13px var(--mono);color:var(--amber);margin-bottom:16px}
+.step h4{margin:0 0 6px;font-weight:500;font-size:17px}
+.step p{margin:0;color:var(--text2);font-size:15px}
+.bank{margin-top:12px;display:grid;grid-template-columns:repeat(4,auto) 1fr;background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden}
+.bank>div{padding:20px 24px;border-right:1px solid var(--line)}
+.bank>div:last-child{border-right:0}
+.bank .k{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.bank .v{font-size:16px;font-weight:500}
+.copy{margin-left:8px;background:none;border:1px solid var(--line2);color:var(--text2);border-radius:6px;font:500 12px Montserrat,sans-serif;padding:2px 8px;cursor:pointer;vertical-align:2px}
+.copy:hover{color:var(--text);border-color:var(--text2)}
+.memo{color:var(--amber)}
+
+.two{display:grid;grid-template-columns:5fr 7fr;gap:48px}
+.pol{list-style:none;margin:0;padding:0}
+.pol li{display:flex;gap:12px;padding:16px 0;border-bottom:1px solid var(--line);color:var(--text2);font-size:15px}
+.pol li:first-child{border-top:1px solid var(--line)}
+.pol li .i{color:var(--green);margin-top:3px}
+.pol b{color:var(--text);font-weight:500}
+.end{margin:112px 0 0;padding:64px 48px;background:var(--s1);border:1px solid var(--line);border-radius:20px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.end h2{font-weight:600;font-size:32px;line-height:1.2;margin:0 0 8px}
+.end p{margin:0;color:var(--text2)}
+
+@media (max-width:1080px){
+  .plans{grid-template-columns:repeat(2,1fr)}
+  .plan.hot{grid-column:1/-1;order:-1}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .bank{grid-template-columns:1fr 1fr}
+  .bank>div{border-bottom:1px solid var(--line)}
+}
+@media (max-width:820px){
+  .hero{padding-top:56px}
+  .hero h1{font-size:36px}
+  .hero .lead{font-size:17px}
+  .shot{margin-top:40px}
+  .split,.two{grid-template-columns:1fr;gap:28px}
+  .feats{grid-template-columns:1fr}
+  .feat,.feat:not(:nth-child(3n+1)){padding:24px 0;border-left:0}
+  .end{grid-template-columns:1fr;padding:40px 24px;margin-top:80px}
+  .end h2{font-size:26px}
+}
+@media (max-width:520px){
+  .plans,.steps,.bank{grid-template-columns:1fr}
+  .bank>div{border-right:0}
+  .acts .btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body data-page="app" data-app="event-sound-control">
+<header id="top"></header>
+<div class="sub">
+  <div class="wrap">
+    <a class="who" href="#tong-quan"><img src="../../assets/img/esc-icon.png" alt="" width="56" height="56">EventSoundControl</a>
+    <nav><a href="#tinh-nang">Tính năng</a><a href="#bang-gia">Bảng giá</a><a href="#cach-mua">Cách mua</a><a href="#hoi-dap">Hỏi đáp</a></nav>
+    <a class="btn btn-go js-dl" href="#"><span data-icon="dl"></span>Tải dùng thử</a>
+  </div>
+</div>
+
+<main>
+<section class="hero" id="tong-quan" style="padding-top:88px">
+  <div class="wrap">
+    <span class="tape">Phần mềm chạy nhạc sự kiện · Windows</span>
+    <h1>Chạy nhạc cả buổi sự kiện bằng một nút GO</h1>
+    <p class="lead">Nhạc nền, hiệu ứng và kịch bản nằm trên một màn hình. Bài chuyển mượt, âm lượng đều nhau, không lo bấm nhầm giữa show.</p>
+    <div class="acts">
+      <a class="btn btn-go js-dl" href="#"><span data-icon="dl"></span>Tải bản dùng thử 30 ngày</a>
+      <a class="btn btn-2" href="#bang-gia">Xem bảng giá</a>
+    </div>
+    <p class="meta">Windows 10/11 64-bit · Tiếng Việt · Không cần mạng khi chạy show · Đủ tính năng khi dùng thử</p>
+    <div class="shot"><img src="img/console.png" width="2580" height="1590" alt="Màn hình Điều khiển của PTVEventSoundControl: khối GO và Dừng hết, vùng Nhạc nền và Hiệu ứng, cột Kịch bản"></div>
+  </div>
+</section>
+
+<section id="tinh-nang">
+  <div class="wrap">
+    <div class="head">
+      <span class="tape">Tính năng</span>
+      <h2>Làm cho người đứng bàn âm thanh, không phải cho phòng thu</h2>
+      <p>Mọi thứ cần trong một buổi tiệc cưới, hội nghị hay chương trình sân khấu, gói trong một app cài một lần.</p>
+    </div>
+    <div class="split">
+      <div>
+        <h3>Chỉnh to dần, nhỏ dần trước giờ diễn, nghe thử bằng tai nghe</h3>
+        <p>Kéo đường cong hoặc gõ số giây. Nghe thử qua ngõ tai nghe riêng trong khi loa hội trường vẫn im. Cắt bỏ đoạn đầu lặng, đoạn cuối dư chỉ bằng hai điểm.</p>
+        <p>Áp một kiểu fade cho cả danh sách bằng một nút.</p>
+      </div>
+      <div class="pic"><img src="img/fade.png" width="2580" height="1590" alt="Bảng Chỉnh bài: đường cong to dần 1,5 giây và nhỏ dần 1 giây, nút nghe thử đoạn đầu và đoạn cuối" loading="lazy"></div>
+    </div>
+    <div class="feats">
+      <div class="feat"><span class="ic"><span data-icon="wave"></span></span><h4>Kịch bản bấm GO</h4><p>Xếp bài và ghi chú tay theo thứ tự chương trình. Bấm <kbd>Space</kbd> là chạy mục kế, nối mắt xích để tự chạy tiếp.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="arrow"></span></span><h4>Chuyển bài chéo</h4><p>Bài cũ nhỏ dần, bài mới to dần cùng lúc. Ba chế độ phát: phát đơn, chồng bài, nối tiếp.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="mic"></span></span><h4>Âm lượng đều nhau</h4><p>Đo độ to chuẩn EBU R128 và tự cân về −16 LUFS, có limiter chống méo. Hết cảnh bài này to bài kia nhỏ.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="lyrics"></span></span><h4>Nhạc nền và hiệu ứng tách riêng</h4><p>Hai vùng, mỗi kênh một ngõ ra riêng. Danh sách theo buổi: Buổi sáng, Tiệc tối, Văn nghệ.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="screen"></span></span><h4>Ghim nổi trên PowerPoint</h4><p>Làm mờ nền, ghim app trên slide đang trình chiếu. Nút Phát, Dừng, GO vẫn rõ để bấm.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="check"></span></span><h4>Khóa khi chạy show</h4><p>Chỉ còn Phát, Dừng và âm lượng. Phiên làm việc tự lưu, mở app là có lại đủ bài.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="bang-gia">
+  <div class="wrap">
+    <div class="head">
+      <span class="tape">Bảng giá</span>
+      <h2>Trả theo thời gian dùng, mỗi key cho một máy</h2>
+      <p>Dùng thử 30 ngày trước, thấy hợp rồi mới mua. Giá đã gồm mọi bản cập nhật trong thời hạn.</p>
+    </div>
+    <div class="plans">
+      <div class="plan"><div class="nm">Mời ly cà phê</div><div class="pr">30k</div><div class="per">&nbsp;</div><div class="dur">1 tháng</div>
+        <p class="joke">Tỉnh táo chạy show trọn một tháng. Rẻ hơn ly bạc xỉu ở sân bay.</p><a class="btn btn-2 js-zalo" href="#">Chọn gói</a></div>
+      <div class="plan"><div class="nm">Mời tô phở bò</div><div class="pr">79k</div><div class="per mono">≈ 26k/tháng</div><div class="dur">3 tháng</div>
+        <p class="joke">Ấm bụng cả quý. Rẻ hơn 3 ly cà phê, lại được thêm hành.</p><a class="btn btn-2 js-zalo" href="#">Chọn gói</a></div>
+      <div class="plan hot"><span class="tape tag">Nhiều người chọn</span><div class="nm">Mời bữa lẩu</div><div class="pr">149k</div><div class="per mono">≈ 25k/tháng</div><div class="dur">6 tháng</div>
+        <p class="joke">Lẩu ngon phải có bạn, show ngon phải có bản quyền. Nửa năm khỏi lo key.</p><a class="btn btn-go js-zalo" href="#">Chọn gói</a></div>
+      <div class="plan"><div class="nm">Mời mâm hải sản Nha Trang</div><div class="pr">249k</div><div class="per mono">≈ 21k/tháng</div><div class="dur">12 tháng</div>
+        <p class="joke">Tôm hùm Bình Ba chưa kịp lên mâm, bản cập nhật đã về máy.</p><a class="btn btn-2 js-zalo" href="#">Chọn gói</a></div>
+      <div class="plan"><div class="nm">Kết nghĩa huynh đệ</div><div class="pr">499k</div><div class="per">trả một lần</div><div class="dur">Trọn đời</div>
+        <p class="joke">Một lần chuyển khoản, cả đời không nhắc chuyện key.</p><a class="btn btn-2 js-zalo" href="#">Chọn gói</a></div>
+    </div>
+    <p class="note">Giá tính bằng đồng Việt Nam. Từ máy thứ hai giảm 30%. Chưa xuất hóa đơn VAT.</p>
+  </div>
+</section>
+
+<section id="cach-mua">
+  <div class="wrap">
+    <div class="head">
+      <span class="tape">Cách mua</span>
+      <h2>Bốn bước, nhận key trong 15 phút</h2>
+      <p>Không cần tạo tài khoản. Key gửi qua Zalo, dán vào app là xong.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><h4>Tải và dùng thử</h4><p>Cài trên máy chạy show. Dùng đủ tính năng trong 30 ngày.</p></div>
+      <div class="step"><h4>Lấy mã máy</h4><p>Trong app, mở mục Bản quyền. Bấm sao chép mã dạng <span class="mono">PTV-XXXX-…</span></p></div>
+      <div class="step"><h4>Chuyển khoản</h4><p>Trang Ủng hộ trong app có mã QR điền sẵn số tiền và nội dung. Hoặc chuyển theo thông tin bên dưới.</p></div>
+      <div class="step"><h4>Nhận key qua Zalo</h4><p>Gửi mã máy cho PTV. Dán key vào mục Bản quyền, bấm Kích hoạt.</p></div>
+    </div>
+    <div class="bank">
+      <div><span class="k">Ngân hàng</span><span class="v">MB Bank</span></div>
+      <div><span class="k">Số tài khoản</span><span class="v mono">0968196862</span><button class="copy" data-copy="0968196862">Sao chép</button></div>
+      <div><span class="k">Chủ tài khoản</span><span class="v">PHAM THE VU</span></div>
+      <div><span class="k">Zalo nhận mã máy</span><span class="v mono">0979 836 981</span></div>
+      <div><span class="k">Nội dung chuyển khoản</span><span class="v mono memo">PTV &lt;chữ gói&gt; &lt;mã máy&gt;</span><span class="k" style="margin-top:4px">Chữ gói: C cà phê · P phở · L lẩu · H hải sản · D huynh đệ</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="hoi-dap">
+  <div class="wrap two">
+    <div>
+      <div class="head" style="margin-bottom:28px"><span class="tape">Cam kết</span><h2>Mua rồi vẫn có người lo</h2></div>
+      <ul class="pol">
+        <li><span data-icon="check"></span><span><b>Đổi máy, cài lại Windows:</b> cấp lại key miễn phí, giữ nguyên hạn, 2 lần mỗi năm.</span></li>
+        <li><span data-icon="check"></span><span><b>Không chạy được trên máy bạn:</b> hoàn tiền trong 7 ngày đầu.</span></li>
+        <li><span data-icon="check"></span><span><b>Hỗ trợ qua Zalo:</b> hướng dẫn cài đặt và sử dụng, kể cả gọi điện khi cần.</span></li>
+        <li><span data-icon="check"></span><span><b>Cập nhật:</b> mọi bản mới trong thời hạn gói đều miễn phí.</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="head" style="margin-bottom:28px"><span class="tape">Hỏi đáp</span><h2>Câu hỏi hay gặp</h2></div>
+      <details><summary>Máy Mac có dùng được không?</summary><p>Chưa. Hiện chỉ chạy trên Windows 10 và 11 bản 64-bit.</p></details>
+      <details><summary>Windows báo “đã bảo vệ máy tính của bạn” khi cài?</summary><p>Do phần mềm mới chưa có chữ ký số. Bấm “Thông tin thêm”, rồi “Vẫn chạy”. Bộ cài tải từ đúng link trên trang này là an toàn.</p></details>
+      <details><summary>Chạy show có cần Internet không?</summary><p>Không. Dùng thử, kích hoạt key và chạy nhạc đều hoạt động khi không có mạng.</p></details>
+      <details><summary>Mã máy là gì, sao key chỉ chạy trên một máy?</summary><p>Mã máy được tạo từ phần cứng của máy bạn. Key ký riêng cho mã đó nên không dùng chung được. Nhờ vậy giá mới thấp thế này.</p></details>
+      <details><summary>Hết dùng thử mà chưa mua thì sao?</summary><p>App sẽ yêu cầu kích hoạt. Dự án, danh sách bài và ghi chú vẫn còn nguyên, nhập key là dùng tiếp.</p></details>
+      <details><summary>Đang dùng gói tháng, muốn lên gói dài hơn?</summary><p>Nhắn Zalo. Phần ngày còn lại được cộng vào gói mới.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="end">
+    <div><h2>Thử trong buổi sự kiện tới của bạn</h2><p>30 ngày miễn phí, đủ tính năng. Cần tư vấn, nhắn Zalo 0979 836 981.</p></div>
+    <div class="acts"><a class="btn btn-go js-dl" href="#"><span data-icon="dl"></span>Tải dùng thử</a><a class="btn btn-2 js-zalo" href="#"><span data-icon="msg"></span>Nhắn Zalo</a></div>
+  </div>
+</div>
+</main>
+
+<footer id="foot"></footer>
+<script src="../../assets/apps.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>
