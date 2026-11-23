@@ -42,6 +42,22 @@ window.PTV_APPS = [
     download: 'https://github.com/monterstudioptv-cpu/ptv-downloads/raw/main/PTVEventSoundControl-Setup.exe',
   },
   {
+    id: 'ptv-studio',
+    name: 'PTV Studio',
+    short: 'Studio',
+    line: 'Bàn trộn hình sự kiện: camera, video, PowerPoint lên màn LED, phát trực tiếp và ghi hình.',
+    status: 'live',
+    version: '3.6.6',
+    platform: 'Windows 10/11',
+    group: 'hinh-anh',
+    icon: 'apps/ptv-studio/img/ptv-studio-icon.png',
+    color: '#e4b344',
+    from: '30k/tháng',
+    trial: '30 ngày',
+    // Link cố định như bản âm thanh: bản mới chỉ cần đẩy đè tệp cùng tên lên kho ptv-downloads
+    download: 'https://github.com/monterstudioptv-cpu/ptv-downloads/raw/main/PTV-Studio-Setup.exe',
+  },
+  {
     id: 'live-control',
     name: 'PTV Live Control',
     short: 'Live Control',

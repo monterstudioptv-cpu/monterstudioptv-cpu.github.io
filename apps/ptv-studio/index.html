@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="vi" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PTV Studio · Bàn trộn hình sự kiện cho Windows</title>
+<meta name="description" content="Bàn trộn hình kiểu vMix cho sự kiện: camera, video, PowerPoint đủ hiệu ứng, chiếu màn LED một chạm, phát trực tiếp và ghi hình. Dùng thử miễn phí 30 ngày. Windows 10/11.">
+<meta property="og:title" content="PTV Studio · Bàn trộn hình sự kiện, chiếu màn LED một chạm">
+<meta property="og:description" content="Camera, video, PowerPoint, màn LED, phát trực tiếp và ghi hình trong một ứng dụng. Dùng thử 30 ngày, đủ tính năng.">
+<meta property="og:image" content="img/console.png">
+<link rel="icon" href="img/ptv-studio-icon.png">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+.hero{padding:88px 0 0;text-align:center}
+.hero h1{font-weight:600;font-size:56px;line-height:1.1;letter-spacing:-.02em;margin:24px auto 20px;max-width:20ch;text-wrap:balance}
+.hero .lead{color:var(--text2);font-size:19px;max-width:40em;margin:0 auto 32px}
+.acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.meta{margin:20px 0 0;color:var(--muted);font-size:13px}
+.shot{margin:56px auto 0;max-width:1120px;border-radius:14px;border:1px solid var(--line2);overflow:hidden;background:var(--s1);box-shadow:0 30px 80px rgb(0 0 0 / .5)}
+
+.split{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:center;margin-bottom:64px}
+.split h3{font-weight:600;font-size:26px;line-height:1.25;margin:0 0 12px}
+.split p{color:var(--text2);margin:0 0 16px}
+.split .pic{border-radius:12px;border:1px solid var(--line2);overflow:hidden}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.feat{padding:28px 28px 32px 0;border-bottom:1px solid var(--line)}
+.feat:not(:nth-child(3n+1)){padding-left:28px;border-left:1px solid var(--line)}
+.feat .ic{display:flex;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;background:var(--s2);color:var(--text2);margin-bottom:16px}
+.feat h4{margin:0 0 6px;font-weight:500;font-size:17px}
+.feat p{margin:0;color:var(--text2);font-size:15px}
+
+.plans{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.plan{position:relative;display:flex;flex-direction:column;background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);padding:24px 20px 20px}
+.plan.hot{border-color:rgb(240 164 58 / .55);background:linear-gradient(#211c15,#1b1b1d)}
+.plan .tag{position:absolute;top:-12px;left:18px}
+.plan .nm{font-weight:500;font-size:15px;min-height:48px}
+.plan .pr{font:600 32px/1 Montserrat,sans-serif;font-variant-numeric:tabular-nums;margin:12px 0 4px;letter-spacing:-.01em}
+.plan .per{font-size:13px;color:var(--muted);min-height:21px}
+.plan .dur{margin:16px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:14px}
+.plan .joke{color:var(--muted);font-size:13px;line-height:1.5;margin:8px 0 20px;flex:1}
+.plan .btn{height:40px;justify-content:center;font-size:14px;width:100%}
+.note{margin:20px 0 0;color:var(--muted);font-size:14px}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:s}
+.step{background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);padding:24px}
+.step::before{counter-increment:s;content:'0' counter(s);display:block;font:500 13px var(--mono);color:var(--amber);margin-bottom:16px}
+.step h4{margin:0 0 6px;font-weight:500;font-size:17px}
+.step p{margin:0;color:var(--text2);font-size:15px}
+.bank{margin-top:12px;display:grid;grid-template-columns:repeat(4,auto) 1fr;background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden}
+.bank>div{padding:20px 24px;border-right:1px solid var(--line)}
+.bank>div:last-child{border-right:0}
+.bank .k{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.bank .v{font-size:16px;font-weight:500}
+.copy{margin-left:8px;background:none;border:1px solid var(--line2);color:var(--text2);border-radius:6px;font:500 12px Montserrat,sans-serif;padding:2px 8px;cursor:pointer;vertical-align:2px}
+.copy:hover{color:var(--text);border-color:var(--text2)}
+.memo{color:var(--amber)}
+
+.need{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.need>div{background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);padding:24px}
+.need h4{margin:0 0 8px;font-weight:500;font-size:17px}
+.need p{margin:0;color:var(--text2);font-size:15px}
+
+.two{display:grid;grid-template-columns:5fr 7fr;gap:48px}
+.pol{list-style:none;margin:0;padding:0}
+.pol li{display:flex;gap:12px;padding:16px 0;border-bottom:1px solid var(--line);color:var(--text2);font-size:15px}
+.pol li:first-child{border-top:1px solid var(--line)}
+.pol li .i{color:var(--green);margin-top:3px}
+.pol b{color:var(--text);font-weight:500}
+.end{margin:112px 0 0;padding:64px 48px;background:var(--s1);border:1px solid var(--line);border-radius:20px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.end h2{font-weight:600;font-size:32px;line-height:1.2;margin:0 0 8px}
+.end p{margin:0;color:var(--text2)}
+
+@media (max-width:1080px){
+  .plans{grid-template-columns:repeat(2,1fr)}
+  .plan.hot{grid-column:1/-1;order:-1}
+  .steps,.need{grid-template-columns:repeat(2,1fr)}
+  .bank{grid-template-columns:1fr 1fr}
+  .bank>div{border-bottom:1px solid var(--line)}
+}
+@media (max-width:820px){
+  .hero{padding-top:56px}
+  .hero h1{font-size:36px}
+  .hero .lead{font-size:17px}
+  .shot{margin-top:40px}
+  .split,.two{grid-template-columns:1fr;gap:28px}
+  .feats{grid-template-columns:1fr}
+  .feat,.feat:not(:nth-child(3n+1)){padding:24px 0;border-left:0}
+  .end{grid-template-columns:1fr;padding:40px 24px;margin-top:80px}
+  .end h2{font-size:26px}
+}
+@media (max-width:520px){
+  .plans,.steps,.bank,.need{grid-template-columns:1fr}
+  .bank>div{border-right:0}
+  .acts .btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body data-page="app" data-app="ptv-studio">
+<header id="top"></header>
+<div class="sub">
+  <div class="wrap">
+    <a class="who" href="#tong-quan"><img src="img/ptv-studio-icon.png" alt="" width="56" height="56">PTV Studio</a>
+    <nav><a href="#tinh-nang">Tính năng</a><a href="#may-can">Máy cần</a><a href="#bang-gia">Bảng giá</a><a href="#cach-mua">Cách mua</a><a href="#hoi-dap">Hỏi đáp</a></nav>
+    <a class="btn btn-go js-dl" href="#"><span data-icon="dl"></span>Tải dùng thử</a>
+  </div>
+</div>
+
+<main>
+<section class="hero" id="tong-quan" style="padding-top:88px">
+  <div class="wrap">
+    <span class="tape">Bàn trộn hình sự kiện · Windows</span>
+    <h1>Camera, video, PowerPoint lên màn LED bằng một chạm</h1>
+    <p class="lead">Bàn trộn hình kiểu vMix cho hội nghị, tiệc cưới, sân khấu. Chiếu màn LED, phát trực tiếp và ghi hình cùng lúc, nút nào cũng có lời giải thích bằng tiếng Việt.</p>
+    <div class="acts">
+      <a class="btn btn-go js-dl" href="#"><span data-icon="dl"></span>Tải bản dùng thử 30 ngày</a>
+      <a class="btn btn-2" href="#bang-gia">Xem bảng giá</a>
+    </div>
+    <p class="meta">Windows 10/11 64-bit · Tiếng Việt và tiếng Anh · Bộ cài có sẵn mọi thứ, không cần mạng · Đủ tính năng khi dùng thử</p>
+    <div class="shot"><img src="img/console.png" width="1920" height="1080" alt="Bàn điều khiển PTV Studio: Xem trước và Chương trình, cột hiệu ứng chuyển cảnh, các ô nguồn và bàn âm thanh"></div>
+  </div>
+</section>
+
+<section id="tinh-nang">
+  <div class="wrap">
+    <div class="head">
+      <span class="tape">Tính năng</span>
+      <h2>Làm cho người đứng bàn kỹ thuật sự kiện</h2>
+      <p>Những việc hay làm nhất chỉ cần một chạm. Rê chuột lên nút nào cũng có câu giải thích nút đó làm gì.</p>
+    </div>
+    <div class="feats">
+      <div class="feat"><span class="ic"><span data-icon="screen"></span></span><h4>Màn LED một chạm</h4><p>Cắm màn LED, máy chiếu hay tivi, bấm Màn LED là hình Chương trình lên toàn màn hình. Rút cáp cắm lại, hình tự lên lại. Cửa sổ lỡ tắt hay treo giữa buổi thì tự mở lại.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="screen"></span></span><h4>PowerPoint đủ hiệu ứng</h4><p>Mở tệp .pptx làm một nguồn, giữ nguyên hiệu ứng và chuyển slide. Bút trình chiếu, PageDown, PageUp điều khiển được.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="arrow"></span></span><h4>Chuyển cảnh như bàn trộn thật</h4><p>Xem trước và Chương trình, cần gạt, 19 hiệu ứng chuyển cảnh, Stinger bằng video riêng, màn đen một chạm.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="broadcast"></span></span><h4>Phát nhiều nơi cùng lúc</h4><p>YouTube, Facebook, TikTok, Twitch, RTMP, SRT. Mã hóa một lần bằng card đồ họa, một nơi rớt mạng không ảnh hưởng nơi khác.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="check"></span></span><h4>Ghi hình và ghi riêng từng nguồn</h4><p>Ghi Chương trình ra MP4. MultiCorder ghi riêng từng camera để dựng lại sau. Lưu ngay 30 giây vừa phát để chiếu lại.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="mic"></span></span><h4>Bàn âm thanh đầy đủ</h4><p>Mỗi kênh có EQ, nén tiếng, chỉnh độ lợi. Hai bus phụ, nghe thử bằng tai nghe riêng, cảnh báo tiếng vỡ và im lặng.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="lyrics"></span></span><h4>Lớp phủ và chữ</h4><p>Tám lớp phủ, thanh tên, thẻ tiêu đề, chữ chạy, đồng hồ. Tách nền xanh, chỉnh màu, hình trong hình.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="wave"></span></span><h4>Điện thoại làm camera</h4><p>Quét mã QR, điện thoại thành camera qua Wi-Fi, không cần cài ứng dụng. Điều khiển chuyển hình từ điện thoại khác, có đèn tally.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="broadcast"></span></span><h4>NDI, PTZ, MIDI</h4><p>Nhận và phát NDI trong mạng nội bộ, điều khiển camera PTZ qua VISCA, gán nút MIDI và tay cầm chơi game.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="check"></span></span><h4>Tự động theo kịch bản</h4><p>PlayList tự chạy lần lượt các nguồn, Trigger tự bật lớp phủ khi đổi hình, phím tắt tự đặt cho mọi việc.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="msg"></span></span><h4>Nút nào cũng có lời giải thích</h4><p>Rê chuột lên nút là có câu giải thích bằng tiếng Việt. Thanh sức khỏe báo việc cần làm khi mạng yếu, máy quá tải hay tiếng bị vỡ.</p></div>
+      <div class="feat"><span class="ic"><span data-icon="arrow"></span></span><h4>Preset cho từng loại buổi</h4><p>Lưu cả bàn làm việc thành preset: tiệc cưới, hội nghị, văn nghệ. Mở lại là đủ nguồn, lớp phủ và cài đặt.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="may-can">
+  <div class="wrap">
+    <div class="head">
+      <span class="tape">Máy cần</span>
+      <h2>Cài một lần là chạy, kể cả máy mới tinh</h2>
+      <p>Bộ cài có sẵn mọi thành phần. Lần mở đầu, ứng dụng tự đo sức máy khoảng 15 giây và báo máy chạy mượt hay không. Máy yếu thì một nút chuyển sang 720p rồi đo lại.</p>
+    </div>
+    <div class="need">
+      <div><h4>Tối thiểu</h4><p>Windows 10 hoặc 11 bản 64-bit, RAM 8 GB, Microsoft Edge (Windows có sẵn).</p></div>
+      <div><h4>Nên có</h4><p>RAM 16 GB, card đồ họa NVIDIA, AMD hoặc chip Intel có Quick Sync để mã hóa video nhẹ máy.</p></div>
+      <div><h4>Tùy việc</h4><p>Microsoft PowerPoint để chạy slide. NDI Tools (miễn phí) để dùng NDI. Card ghi hình HDMI cho máy quay.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="bang-gia">
+  <div class="wrap">
+    <div class="head">
+      <span class="tape">Bảng giá</span>
+      <h2>Trả theo thời gian dùng, mỗi key cho một máy</h2>
+      <p>Dùng thử 30 ngày trước, thấy hợp rồi mới mua. Giá đã gồm mọi bản cập nhật trong thời hạn.</p>
+    </div>
+    <div class="plans">
+      <div class="plan"><div class="nm">Mời ly cà phê</div><div class="pr">30k</div><div class="per">&nbsp;</div><div class="dur">1 tháng</div>
+        <p class="joke">Tỉnh táo cắt hình trọn một tháng. Rẻ hơn ly bạc xỉu ở sân bay.</p><a class="btn btn-2 js-zalo" href="#">Chọn gói</a></div>
+      <div class="plan"><div class="nm">Mời tô phở bò</div><div class="pr">79k</div><div class="per mono">≈ 26k/tháng</div><div class="dur">3 tháng</div>
+        <p class="joke">Ấm bụng cả quý, chuyển cảnh mượt như nước dùng.</p><a class="btn btn-2 js-zalo" href="#">Chọn gói</a></div>
+      <div class="plan hot"><span class="tape tag">Nhiều người chọn</span><div class="nm">Mời bữa lẩu</div><div class="pr">149k</div><div class="per mono">≈ 25k/tháng</div><div class="dur">6 tháng</div>
+        <p class="joke">Lẩu ngon phải có bạn, show ngon phải có bản quyền. Nửa năm khỏi lo key.</p><a class="btn btn-go js-zalo" href="#">Chọn gói</a></div>
+      <div class="plan"><div class="nm">Mời mâm hải sản Nha Trang</div><div class="pr">249k</div><div class="per mono">≈ 21k/tháng</div><div class="dur">12 tháng</div>
+        <p class="joke">Tôm hùm Bình Ba chưa kịp lên mâm, bản cập nhật đã về máy.</p><a class="btn btn-2 js-zalo" href="#">Chọn gói</a></div>
+      <div class="plan"><div class="nm">Kết nghĩa huynh đệ</div><div class="pr">499k</div><div class="per">trả một lần</div><div class="dur">Trọn đời</div>
+        <p class="joke">Một lần chuyển khoản, cả đời không nhắc chuyện key.</p><a class="btn btn-2 js-zalo" href="#">Chọn gói</a></div>
+    </div>
+    <p class="note">Giá tính bằng đồng Việt Nam. Từ máy thứ hai giảm 30%. Chưa xuất hóa đơn VAT.</p>
+  </div>
+</section>
+
+<section id="cach-mua">
+  <div class="wrap">
+    <div class="head">
+      <span class="tape">Cách mua</span>
+      <h2>Bốn bước, nhận key trong 15 phút</h2>
+      <p>Không cần tạo tài khoản. Key gửi qua Zalo, dán vào ứng dụng là xong.</p>
+    </div>
+    <div class="split">
+      <div>
+        <h3>Chọn gói, quét QR ngay trong ứng dụng</h3>
+        <p>Mã QR đã điền sẵn số tiền và nội dung chuyển khoản kèm mã máy, app ngân hàng nào cũng quét được. Một nút gửi mã máy qua Zalo cho PTV.</p>
+        <p>Key gắn với máy của bạn, dán vào là dùng ngay, không cần mạng.</p>
+      </div>
+      <div class="pic"><img src="img/license.png" width="1920" height="1080" alt="Bảng Mua bản quyền trong PTV Studio: năm gói, mã QR chuyển khoản điền sẵn số tiền và nội dung" loading="lazy"></div>
+    </div>
+    <div class="steps">
+      <div class="step"><h4>Tải và dùng thử</h4><p>Cài trên máy chạy show. Dùng đủ tính năng trong 30 ngày.</p></div>
+      <div class="step"><h4>Chọn gói trong ứng dụng</h4><p>Bấm chữ Dùng thử trên thanh trên, mục Mua bản quyền. Mã máy dạng <span class="mono">PTS-XXXX-…</span> đã điền sẵn.</p></div>
+      <div class="step"><h4>Chuyển khoản</h4><p>Quét mã QR trong ứng dụng: số tiền và nội dung điền sẵn. Hoặc chuyển theo thông tin bên dưới.</p></div>
+      <div class="step"><h4>Nhận key qua Zalo</h4><p>Bấm Gửi mã máy qua Zalo. Dán key vào mục Bản quyền, bấm Kích hoạt.</p></div>
+    </div>
+    <div class="bank">
+      <div><span class="k">Ngân hàng</span><span class="v">MB Bank</span></div>
+      <div><span class="k">Số tài khoản</span><span class="v mono">0968196862</span><button class="copy" data-copy="0968196862">Sao chép</button></div>
+      <div><span class="k">Chủ tài khoản</span><span class="v">PHAM THE VU</span></div>
+      <div><span class="k">Zalo nhận mã máy</span><span class="v mono">0979 836 981</span></div>
+      <div><span class="k">Nội dung chuyển khoản</span><span class="v mono memo">PTS &lt;chữ gói&gt; &lt;mã máy&gt;</span><span class="k" style="margin-top:4px">Chữ gói: C cà phê · P phở · L lẩu · H hải sản · D huynh đệ</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="hoi-dap">
+  <div class="wrap two">
+    <div>
+      <div class="head" style="margin-bottom:28px"><span class="tape">Cam kết</span><h2>Mua rồi vẫn có người lo</h2></div>
+      <ul class="pol">
+        <li><span data-icon="check"></span><span><b>Đổi máy, cài lại Windows:</b> cấp lại key miễn phí, giữ nguyên hạn, 2 lần mỗi năm.</span></li>
+        <li><span data-icon="check"></span><span><b>Không chạy được trên máy bạn:</b> hoàn tiền trong 7 ngày đầu.</span></li>
+        <li><span data-icon="check"></span><span><b>Hỗ trợ qua Zalo:</b> hướng dẫn cài đặt và sử dụng, kể cả gọi điện khi cần.</span></li>
+        <li><span data-icon="check"></span><span><b>Cập nhật:</b> mọi bản mới trong thời hạn gói đều miễn phí, cài đè giữ nguyên dự án và key.</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="head" style="margin-bottom:28px"><span class="tape">Hỏi đáp</span><h2>Câu hỏi hay gặp</h2></div>
+      <details><summary>Có cần cài thêm gì không?</summary><p>Không. Bộ cài đã có sẵn Node.js và ffmpeg, cài không cần quyền quản trị, không cần mạng. Chỉ cần PowerPoint nếu dùng slide, và NDI Tools nếu dùng NDI.</p></details>
+      <details><summary>Windows báo “đã bảo vệ máy tính của bạn” khi cài?</summary><p>Do phần mềm mới chưa có chữ ký số. Bấm “Thông tin thêm”, rồi “Vẫn chạy”. Bộ cài tải từ đúng link trên trang này là an toàn.</p></details>
+      <details><summary>Lần đầu mở, Windows hỏi cho Node.js dùng mạng?</summary><p>Chọn Cho phép. Phần này dùng cho camera điện thoại và điều khiển từ xa qua Wi-Fi trong nhà. Không cho phép thì các phần khác vẫn chạy.</p></details>
+      <details><summary>Chạy show có cần Internet không?</summary><p>Không. Dùng thử, kích hoạt key, chiếu LED và ghi hình đều chạy khi không có mạng. Chỉ phát trực tiếp mới cần mạng.</p></details>
+      <details><summary>Hết dùng thử giữa buổi đang phát thì sao?</summary><p>Đang phát, đang ghi hoặc đang chiếu LED thì ứng dụng không khóa giữa chừng. Buổi đó dừng rồi mới yêu cầu kích hoạt. Dự án và thư viện vẫn còn nguyên.</p></details>
+      <details><summary>Máy Mac có dùng được không?</summary><p>Chưa. Hiện chỉ chạy trên Windows 10 và 11 bản 64-bit.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="end">
+    <div><h2>Thử trong buổi sự kiện tới của bạn</h2><p>30 ngày miễn phí, đủ tính năng. Cần tư vấn, nhắn Zalo 0979 836 981.</p></div>
+    <div class="acts"><a class="btn btn-go js-dl" href="#"><span data-icon="dl"></span>Tải dùng thử</a><a class="btn btn-2 js-zalo" href="#"><span data-icon="msg"></span>Nhắn Zalo</a></div>
+  </div>
+</div>
+</main>
+
+<footer id="foot"></footer>
+<script src="../../assets/apps.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>
