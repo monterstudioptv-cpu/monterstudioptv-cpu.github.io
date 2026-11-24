@@ -9,7 +9,7 @@
 <meta property="og:description" content="Camera, video, PowerPoint, màn LED, phát trực tiếp và ghi hình trong một ứng dụng. Dùng thử 30 ngày, đủ tính năng.">
 <meta property="og:image" content="img/console.png">
 <link rel="icon" href="img/ptv-studio-icon.png">
-<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/site.css?v=20261124">
 <style>
 .hero{padding:88px 0 0;text-align:center}
 .hero h1{font-weight:600;font-size:56px;line-height:1.1;letter-spacing:-.02em;margin:24px auto 20px;max-width:20ch;text-wrap:balance}
@@ -55,10 +55,26 @@
 .copy:hover{color:var(--text);border-color:var(--text2)}
 .memo{color:var(--amber)}
 
-.need{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.need>div{background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);padding:24px}
-.need h4{margin:0 0 8px;font-weight:500;font-size:17px}
-.need p{margin:0;color:var(--text2);font-size:15px}
+.cfg{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:start}
+.spec{width:100%;border-collapse:collapse;font-size:15px}
+.spec th,.spec td{padding:14px 16px 14px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.spec thead th{padding-top:0;font-weight:500;font-size:13px;color:var(--muted)}
+.spec tbody th{width:28%;font-weight:500;color:var(--text)}
+.spec td{color:var(--text2)}
+.spec tbody tr{transition:background .2s}
+.spec tbody tr:hover{background:rgb(237 237 237 / .02)}
+.meas{background:var(--s2);border:1px solid var(--line);border-radius:var(--r-card);padding:28px}
+.meas h3{margin:0 0 4px;font-weight:500;font-size:19px}
+.meas .rig{margin:0 0 20px;font-size:13px;color:var(--muted)}
+.mrow{display:grid;grid-template-columns:1fr auto;gap:10px 16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line)}
+.mrow .ml{font-size:15px;color:var(--text2)}
+.mrow .mv{font-size:14px;color:var(--muted);white-space:nowrap}
+.mrow .mv b{font:600 24px/1 var(--mono);color:var(--text);margin-right:2px}
+.mrow .bar{grid-column:1/-1;height:10px;border-radius:3px;overflow:hidden;background:repeating-linear-gradient(90deg,var(--s3) 0 calc(5% - 2px),transparent calc(5% - 2px) 5%)}
+.mrow .bar i{display:block;height:100%;width:var(--v);min-width:6px;background:var(--green);border-radius:3px;transition:width 1s cubic-bezier(.2,.7,.2,1) .2s}
+.mo .meas.rv:not(.in) .bar i{width:0;min-width:0}
+.mrow .mr{grid-column:1/-1;justify-self:end;font-size:12px;color:var(--muted)}
+.meas .fine{margin:16px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 
 .two{display:grid;grid-template-columns:5fr 7fr;gap:48px}
 .pol{list-style:none;margin:0;padding:0}
@@ -82,7 +98,7 @@
   .hero h1{font-size:36px}
   .hero .lead{font-size:17px}
   .shot{margin-top:40px}
-  .split,.two{grid-template-columns:1fr;gap:28px}
+  .split,.two,.cfg{grid-template-columns:1fr;gap:28px}
   .feats{grid-template-columns:1fr}
   .feat,.feat:not(:nth-child(3n+1)){padding:24px 0;border-left:0}
   .end{grid-template-columns:1fr;padding:40px 24px;margin-top:80px}
@@ -92,6 +108,13 @@
   .plans,.steps,.bank,.need{grid-template-columns:1fr}
   .bank>div{border-right:0}
   .acts .btn{width:100%;justify-content:center}
+  .spec thead{display:none}
+  .spec tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .spec th,.spec td{padding:0;border:0}
+  .spec tbody th{grid-column:1/-1;width:auto}
+  .spec td[colspan]{grid-column:1/-1}
+  .spec td[data-k]::before{content:attr(data-k);display:block;font-size:12px;color:var(--muted)}
+  .meas{padding:24px 20px}
 }
 </style>
 </head>
@@ -100,14 +123,14 @@
 <div class="sub">
   <div class="wrap">
     <a class="who" href="#tong-quan"><img src="img/ptv-studio-icon.png" alt="" width="56" height="56">PTV Studio</a>
-    <nav><a href="#tinh-nang">Tính năng</a><a href="#may-can">Máy cần</a><a href="#bang-gia">Bảng giá</a><a href="#cach-mua">Cách mua</a><a href="#hoi-dap">Hỏi đáp</a></nav>
+    <nav aria-label="Các phần của trang"><a href="#tinh-nang">Tính năng</a><a href="#danh-gia">Đánh giá</a><a href="#cau-hinh">Cấu hình</a><a href="#bang-gia">Bảng giá</a><a href="#cach-mua">Cách mua</a><a href="#hoi-dap">Hỏi đáp</a></nav>
     <a class="btn btn-go js-dl" href="#"><span data-icon="dl"></span>Tải dùng thử</a>
   </div>
 </div>
 
 <main>
 <section class="hero" id="tong-quan" style="padding-top:88px">
-  <div class="wrap">
+  <div class="wrap" data-enter>
     <span class="tape">Bàn trộn hình sự kiện · Windows</span>
     <h1>Camera, video, PowerPoint lên màn LED bằng một chạm</h1>
     <p class="lead">Bàn trộn hình kiểu vMix cho hội nghị, tiệc cưới, sân khấu. Chiếu màn LED, phát trực tiếp và ghi hình cùng lúc, nút nào cũng có lời giải thích bằng tiếng Việt.</p>
@@ -116,14 +139,15 @@
       <a class="btn btn-2" href="#bang-gia">Xem bảng giá</a>
     </div>
     <p class="meta">Windows 10/11 64-bit · Tiếng Việt và tiếng Anh · Bộ cài có sẵn mọi thứ, không cần mạng · Đủ tính năng khi dùng thử</p>
+    <a class="rate-badge" id="rate-badge" href="#danh-gia" hidden></a>
     <div class="shot"><img src="img/console.png" width="1920" height="1080" alt="Bàn điều khiển PTV Studio: Xem trước và Chương trình, cột hiệu ứng chuyển cảnh, các ô nguồn và bàn âm thanh"></div>
   </div>
 </section>
 
-<section id="tinh-nang">
+<section id="tinh-nang" class="band">
   <div class="wrap">
     <div class="head">
-      <span class="tape">Tính năng</span>
+      <span class="tape"><b>01</b>Tính năng</span>
       <h2>Làm cho người đứng bàn kỹ thuật sự kiện</h2>
       <p>Những việc hay làm nhất chỉ cần một chạm. Rê chuột lên nút nào cũng có câu giải thích nút đó làm gì.</p>
     </div>
@@ -144,17 +168,47 @@
   </div>
 </section>
 
-<section id="may-can">
+<section id="danh-gia">
   <div class="wrap">
     <div class="head">
-      <span class="tape">Máy cần</span>
+      <span class="tape"><b>02</b>Đánh giá</span>
+      <h2>Đánh giá từ người dùng thật</h2>
+      <p>Chỉ đăng lời của người đã dùng PTV Studio cho buổi sự kiện của họ, khi họ đồng ý. Dùng thử xong, bạn chấm sao giúp người đi sau.</p>
+    </div>
+    <div class="rv-wrap" id="reviews"></div>
+  </div>
+</section>
+
+<section id="cau-hinh" class="band">
+  <span id="may-can"></span>
+  <div class="wrap">
+    <div class="head">
+      <span class="tape"><b>03</b>Cấu hình</span>
       <h2>Cài một lần là chạy, kể cả máy mới tinh</h2>
       <p>Bộ cài có sẵn mọi thành phần. Lần mở đầu, ứng dụng tự đo sức máy khoảng 15 giây và báo máy chạy mượt hay không. Máy yếu thì một nút chuyển sang 720p rồi đo lại.</p>
     </div>
-    <div class="need">
-      <div><h4>Tối thiểu</h4><p>Windows 10 hoặc 11 bản 64-bit, RAM 8 GB, Microsoft Edge (Windows có sẵn).</p></div>
-      <div><h4>Nên có</h4><p>RAM 16 GB, card đồ họa NVIDIA, AMD hoặc chip Intel có Quick Sync để mã hóa video nhẹ máy.</p></div>
-      <div><h4>Tùy việc</h4><p>Microsoft PowerPoint để chạy slide. NDI Tools (miễn phí) để dùng NDI. Card ghi hình HDMI cho máy quay.</p></div>
+    <div class="cfg">
+      <table class="spec">
+        <thead><tr><th scope="col"><span class="vh">Thành phần</span></th><th scope="col">Tối thiểu</th><th scope="col">Khuyên dùng</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Hệ điều hành</th><td data-k="Tối thiểu">Windows 10 bản 64-bit</td><td data-k="Khuyên dùng">Windows 11 bản 64-bit</td></tr>
+          <tr><th scope="row">Bộ nhớ RAM</th><td data-k="Tối thiểu">8 GB</td><td data-k="Khuyên dùng">16 GB trở lên</td></tr>
+          <tr><th scope="row">Mã hóa video</th><td data-k="Tối thiểu">Không có card thì mã hóa bằng CPU, nặng máy hơn</td><td data-k="Khuyên dùng">Card NVIDIA, AMD hoặc chip Intel có Quick Sync</td></tr>
+          <tr><th scope="row">Màn LED, máy chiếu</th><td colspan="2">Một cổng HDMI hoặc DisplayPort còn trống cho màn thứ hai</td></tr>
+          <tr><th scope="row">Ổ đĩa</th><td data-k="Tối thiểu">Bộ cài 55 MB</td><td data-k="Khuyên dùng">Ổ SSD, chừa chỗ cho tệp ghi hình</td></tr>
+          <tr><th scope="row">Trình duyệt</th><td colspan="2">Microsoft Edge, có sẵn trong Windows</td></tr>
+          <tr><th scope="row">Internet</th><td colspan="2">Không cần để chạy show và kích hoạt key. Chỉ phát trực tiếp mới cần mạng</td></tr>
+          <tr><th scope="row">Tùy việc</th><td colspan="2">PowerPoint để chạy slide · NDI Tools (miễn phí) để dùng NDI · card ghi hình HDMI cho máy quay</td></tr>
+        </tbody>
+      </table>
+      <div class="meas">
+        <h3>Đo trên máy chạy show của PTV</h3>
+        <p class="rig mono">Core i5-12600K · RAM 32 GB · mã hóa Intel Quick Sync</p>
+        <div class="mrow"><span class="ml">Mở sẵn, chờ vào show</span><span class="mv"><b class="mono" data-count="0.9">0,9</b>% CPU</span><span class="bar"><i style="--v:.9%"></i></span><span class="mr mono">RAM 0,9 GB</span></div>
+        <div class="mrow"><span class="ml">Ghi hình 1080p30</span><span class="mv"><b class="mono" data-count="2.9">2,9</b>% CPU</span><span class="bar"><i style="--v:2.9%"></i></span><span class="mr mono">RAM 1,4 GB</span></div>
+        <div class="mrow"><span class="ml">Phát thêm NDI</span><span class="mv">+<b class="mono" data-count="3">3</b>% CPU</span><span class="bar"><i style="--v:3%"></i></span></div>
+        <p class="fine">Tính trên cả CPU 16 luồng, với dự án thật: 3 video, 2 tệp PowerPoint, 5 lớp phủ, màn LED.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -162,7 +216,7 @@
 <section id="bang-gia">
   <div class="wrap">
     <div class="head">
-      <span class="tape">Bảng giá</span>
+      <span class="tape"><b>04</b>Bảng giá</span>
       <h2>Trả theo thời gian dùng, mỗi key cho một máy</h2>
       <p>Dùng thử 30 ngày trước, thấy hợp rồi mới mua. Giá đã gồm mọi bản cập nhật trong thời hạn.</p>
     </div>
@@ -182,10 +236,10 @@
   </div>
 </section>
 
-<section id="cach-mua">
+<section id="cach-mua" class="band">
   <div class="wrap">
     <div class="head">
-      <span class="tape">Cách mua</span>
+      <span class="tape"><b>05</b>Cách mua</span>
       <h2>Bốn bước, nhận key trong 15 phút</h2>
       <p>Không cần tạo tài khoản. Key gửi qua Zalo, dán vào ứng dụng là xong.</p>
     </div>
@@ -216,7 +270,7 @@
 <section id="hoi-dap">
   <div class="wrap two">
     <div>
-      <div class="head" style="margin-bottom:28px"><span class="tape">Cam kết</span><h2>Mua rồi vẫn có người lo</h2></div>
+      <div class="head" style="margin-bottom:28px"><span class="tape"><b>06</b>Cam kết</span><h2>Mua rồi vẫn có người lo</h2></div>
       <ul class="pol">
         <li><span data-icon="check"></span><span><b>Đổi máy, cài lại Windows:</b> cấp lại key miễn phí, giữ nguyên hạn, 2 lần mỗi năm.</span></li>
         <li><span data-icon="check"></span><span><b>Không chạy được trên máy bạn:</b> hoàn tiền trong 7 ngày đầu.</span></li>
@@ -245,7 +299,8 @@
 </main>
 
 <footer id="foot"></footer>
-<script src="../../assets/apps.js"></script>
-<script src="../../assets/site.js"></script>
+<script src="../../assets/apps.js?v=20261124"></script>
+<script src="../../assets/reviews.js?v=20261124"></script>
+<script src="../../assets/site.js?v=20261124"></script>
 </body>
 </html>

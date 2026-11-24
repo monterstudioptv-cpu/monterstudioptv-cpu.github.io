@@ -62,9 +62,11 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .sub .wrap{display:flex;align-items:center;height:56px;gap:24px}
 .sub .who{display:flex;align-items:center;gap:10px;font-weight:500;font-size:15px;text-decoration:none}
 .sub .who img{width:28px;height:28px;border-radius:7px}
-.sub nav{display:flex;gap:20px}
-.sub nav a{text-decoration:none;color:var(--text2);font-size:14px}
-.sub nav a:hover{color:var(--text)}
+.sub nav{position:relative;display:flex;gap:20px;align-self:stretch}
+.sub nav a{position:relative;display:flex;align-items:center;text-decoration:none;color:var(--text2);font-size:14px;white-space:nowrap;transition:color .2s}
+.sub nav a::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;border-radius:2px;background:var(--amber);transform:scaleX(0);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.sub nav a:hover,.sub nav a[aria-current]{color:var(--text)}
+.sub nav a[aria-current]::after{transform:none}
 .sub .btn{margin-left:auto;height:36px;padding:0 14px;font-size:14px}
 
 /* biểu tượng app */
@@ -113,7 +115,11 @@ kbd{font:500 12px var(--mono);background:var(--s3);border:1px solid var(--line2)
   .top.open .m-only{display:flex!important;color:var(--amber)}
   .top.open .menu{display:flex;flex-direction:column;align-items:stretch;position:absolute;top:64px;left:0;right:0;background:var(--s1);border-bottom:1px solid var(--line2);padding:12px 16px 16px;gap:2px}
   .dd-panel{position:static;width:auto;box-shadow:none;border:0;padding:0 0 0 8px;background:none}
-  .sub nav{display:none}
+  .sub .wrap{gap:16px}
+  .sub .who{font-size:0;gap:0;flex:none}
+  .sub nav{flex:1;min-width:0;gap:18px;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+  .sub nav::-webkit-scrollbar{display:none}
+  .sub .btn{margin-left:0;flex:none}
   section{padding-top:80px}
   .head h2{font-size:28px}
   .foot .cols{grid-template-columns:1fr 1fr}
@@ -123,3 +129,104 @@ kbd{font:500 12px var(--mono);background:var(--s3);border:1px solid var(--line2)
   .foot .cols{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* ---------- phần có nền riêng, số thứ tự phần ---------- */
+section.band{background:var(--s1);border-block:1px solid var(--line);margin-top:112px;padding:96px 0;scroll-margin-top:64px}
+.band .step,.band .bank,.band .plan,.band .need>div,.band .rvw,.band .score{background:var(--s2)}
+.band .feat .ic{background:var(--s3)}
+.tape b{font:500 12px var(--mono);margin-right:8px;opacity:.55}
+
+/* ---------- phản hồi khi rê chuột, bấm ---------- */
+.btn{transition:background .15s,border-color .15s,transform .15s}
+.btn:active{transform:translateY(1px)}
+.plan{transition:transform .25s cubic-bezier(.2,.7,.2,1),border-color .25s}
+.plan:hover{transform:translateY(-2px);border-color:var(--line2)}
+.plan.hot:hover{border-color:rgb(240 164 58 / .8)}
+.feat .ic{transition:background .2s,color .2s}
+.feat:hover .ic{background:color-mix(in srgb,var(--amber) 16%,var(--s2));color:var(--amber)}
+
+/* ---------- chuyển động (site.js bật lớp .mo trên <html>; không bật khi người xem tắt chuyển động) ---------- */
+.mo .rv{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1) var(--d,0ms),transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+.mo .rv.in{opacity:1;transform:none}
+.mo [data-enter]>*{opacity:0;animation:enter .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i,0) * 90ms + 60ms)}
+@keyframes enter{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.hero .shot{scale:var(--sc,1);transform-origin:50% 0}
+@media print{.mo .rv,.mo [data-enter]>*{opacity:1;transform:none;animation:none}}
+
+/* ---------- đánh giá người dùng ---------- */
+.stars{position:relative;display:inline-flex;vertical-align:middle}
+.stars>span{display:flex;gap:2px}
+.stars svg{width:16px;height:16px;fill:var(--s3);stroke:none}
+.stars .on{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--f)) 0 0)}
+.stars .on svg{fill:var(--amber)}
+.stars.lg svg{width:22px;height:22px}
+.rv-wrap{display:grid;grid-template-columns:4fr 8fr;gap:24px;align-items:start}
+.score{position:sticky;top:152px;background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);padding:28px}
+.score .big{font:600 64px/1 Montserrat,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-bottom:12px}
+.score .of{margin:8px 0 0;color:var(--muted);font-size:14px}
+.dist{display:grid;gap:8px;margin:20px 0 24px;padding-top:20px;border-top:1px solid var(--line)}
+.dist>div{display:grid;grid-template-columns:44px 1fr 24px;gap:12px;align-items:center;font-size:13px;color:var(--muted)}
+.dist i{height:6px;border-radius:3px;background:var(--s3);overflow:hidden}
+.dist b{display:block;height:100%;width:var(--w);background:var(--amber);border-radius:3px;transform-origin:left;transition:transform .9s cubic-bezier(.2,.7,.2,1) .25s}
+.mo .score.rv:not(.in) .dist b{transform:scaleX(0)}
+.dist .mono{text-align:right}
+.score .btn{width:100%;justify-content:center}
+.rv-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rvw{margin:0;display:flex;flex-direction:column;gap:16px;background:var(--s1);border:1px solid var(--line);border-radius:var(--r-card);padding:24px}
+.rvw.mau{border-style:dashed;border-color:var(--line2)}
+.rvw.more{display:none}
+.rvw-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.rvw blockquote{margin:0;font-size:15px;line-height:1.65;color:var(--text)}
+.rvw figcaption{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
+.rvw .av{width:36px;height:36px;flex:none;border-radius:50%;background:var(--s3);color:var(--text2);display:flex;align-items:center;justify-content:center;font-weight:500;font-size:14px}
+.rvw .nm{display:block;font-weight:500;font-size:14px}
+.rvw .rl{display:block;color:var(--muted);font-size:13px;line-height:1.4}
+.rvw .dt{margin-left:auto;font:12px var(--mono);color:var(--muted)}
+.rv-all{grid-column:1/-1;justify-content:center}
+.rv-empty{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center;background:var(--s1);border:1px dashed var(--line2);border-radius:var(--r-card);padding:32px}
+.rv-empty h3{margin:0 0 6px;font-weight:500;font-size:19px}
+.rv-empty p{margin:0;color:var(--text2);font-size:15px;max-width:40em}
+.rate-badge{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;text-decoration:none;font-size:14px;color:var(--text2);transition:border-color .2s,background .2s}
+.rate-badge:hover{border-color:var(--amber);background:var(--s1)}
+.rate-badge b{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
+.rate-badge[hidden]{display:none}
+
+/* hộp chấm sao */
+dialog.rate{width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 32px);overflow:auto;background:var(--s1);color:var(--text);border:1px solid var(--line2);border-radius:20px;padding:28px;box-shadow:0 30px 80px rgb(0 0 0 / .55)}
+dialog.rate::backdrop{background:rgb(0 0 0 / .6);backdrop-filter:blur(4px)}
+dialog.rate[open]{animation:pop .25s cubic-bezier(.2,.7,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.rate h3{margin:0 0 6px;font-weight:600;font-size:22px}
+.rate .hint{margin:0 0 20px;color:var(--text2);font-size:14px}
+.pick{border:0;margin:0 0 16px;padding:0}
+.pick legend{font-size:14px;color:var(--text2);margin-bottom:6px;padding:0}
+.pick>div{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:4px}
+.pick input{position:absolute;opacity:0;width:1px;height:1px}
+.pick label{cursor:pointer;color:var(--s3);padding:4px;border-radius:8px;transition:color .15s,transform .15s}
+.pick label svg{width:36px;height:36px;fill:currentColor;display:block}
+.pick label:hover,.pick label:hover~label,.pick input:checked~label{color:var(--amber)}
+.pick label:active{transform:scale(.92)}
+.pick input:focus-visible+label{outline:2px solid var(--amber);outline-offset:1px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.fl{display:grid;gap:6px;font-size:14px;color:var(--text2);margin-bottom:14px}
+.fl input,.fl textarea,.rate-ok textarea{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line2);border-radius:var(--r-ctl);padding:11px 14px;font:400 15px/1.5 Montserrat,sans-serif;resize:vertical}
+.fl input:focus,.fl textarea:focus{outline:none;border-color:var(--amber)}
+.fl ::placeholder{color:var(--muted)}
+.two-f{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.rate .err{min-height:22px;margin:0 0 8px;color:var(--red);font-size:14px}
+.rate-acts{display:flex;gap:8px;flex-wrap:wrap}
+.rate-ok textarea{font:13px/1.55 var(--mono);margin-bottom:16px}
+
+@media (max-width:900px){
+  section{scroll-margin-top:64px}
+  section.band{margin-top:80px;padding:64px 0;scroll-margin-top:84px}
+  .rv-wrap{grid-template-columns:1fr}
+  .score{position:static}
+  .rv-empty{grid-template-columns:1fr;gap:20px}
+}
+@media (max-width:520px){
+  .rv-list,.two-f{grid-template-columns:1fr}
+  .score .big{font-size:52px}
+  .rate-acts .btn,.rv-empty .btn{flex:1;justify-content:center;width:100%}
+  dialog.rate{padding:24px 20px}
+}
