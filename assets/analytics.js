@@ -7,6 +7,7 @@
  * Sự kiện gửi thêm, xem ngay ở GA → Báo cáo → Thời gian thực → "Số lượt sự kiện theo Tên sự kiện":
  *   tai_ptv_studio, tai_event_sound_control   bấm nút Tải của từng phần mềm
  *   nhan_zalo                                 bấm nút nhắn Zalo
+ *   xem_video_ptv_studio, xem_video_event_sound_control   bấm xem video giới thiệu (một lần mỗi lượt mở trang)
  *
  * Thử trên máy: http://127.0.0.1:<cổng>/...?ga=G-THU123 — chạy đủ (dòng hỏi, sự kiện vào window.dataLayer)
  * nhưng KHÔNG tải mã Google, nên không có lượt xem giả nào lọt vào số liệu thật.
@@ -62,6 +63,17 @@
       const app = APPS.find((x) => x.download && x.download === a.href);
       if (app) gtag('event', 'tai_' + app.id.replace(/-/g, '_'), { trang: page || 'trang-chu', transport_type: 'beacon' });
       else if (/^https:\/\/zalo\.me\//.test(a.href)) gtag('event', 'nhan_zalo', { trang: page || 'trang-chu', transport_type: 'beacon' });
+    },
+    true
+  );
+  // Bấm xem video giới thiệu: một lần mỗi lượt mở trang
+  let watched = false;
+  document.addEventListener(
+    'play',
+    (e) => {
+      if (!on || watched || !(e.target instanceof HTMLVideoElement)) return;
+      watched = true;
+      gtag('event', 'xem_video_' + (page || 'trang_chu').replace(/-/g, '_'), { trang: page || 'trang-chu' });
     },
     true
   );

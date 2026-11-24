@@ -157,6 +157,24 @@
   $$('[data-icon]').forEach((el) => (el.outerHTML = svg(el.dataset.icon)));
   $$('.js-year').forEach((el) => (el.textContent = new Date().getFullYear()));
 
+  /* ---------- Video giới thiệu: nút phát lớn trên ảnh bìa, bấm rồi mới hiện thanh điều khiển ---------- */
+  $$('.vid').forEach((box) => {
+    const v = $('video', box);
+    const b = $('.vid-play', box);
+    if (!v || !b) return;
+    const go = () => {
+      b.hidden = true;
+      v.controls = true;
+    };
+    v.controls = false;
+    b.hidden = false;
+    b.addEventListener('click', () => {
+      go();
+      v.play().catch(() => {});
+    });
+    v.addEventListener('play', go);
+  });
+
   /* ---------- Đánh giá người dùng (dữ liệu trong assets/reviews.js) ---------- */
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const num1 = (v) => v.toFixed(1).replace('.', ',');
