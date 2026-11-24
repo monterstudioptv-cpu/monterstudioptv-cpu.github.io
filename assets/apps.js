@@ -16,7 +16,7 @@ window.PTV_SITE = {
   owner: 'Phạm Thế Vũ (PTV)',
   city: 'Nha Trang',
   // Mã đo lường Google Analytics 4 (dạng G-XXXXXXXXXX). Để trống: web không đo lượt xem, không hỏi khách.
-  ga: '',
+  ga: 'G-D36M072XBF',
 };
 
 window.PTV_GROUPS = [
