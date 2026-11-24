@@ -15,6 +15,8 @@ window.PTV_SITE = {
   zaloText: '0979 836 981',
   owner: 'Phạm Thế Vũ (PTV)',
   city: 'Nha Trang',
+  // Mã đo lường Google Analytics 4 (dạng G-XXXXXXXXXX). Để trống: web không đo lượt xem, không hỏi khách.
+  ga: '',
 };
 
 window.PTV_GROUPS = [
@@ -38,8 +40,9 @@ window.PTV_APPS = [
     color: '#f0a43a',
     from: '30k/tháng',
     trial: '30 ngày',
-    // Link cố định: bản mới chỉ cần đẩy đè file cùng tên lên kho ptv-downloads, không phải sửa web
-    download: 'https://github.com/monterstudioptv-cpu/ptv-downloads/raw/main/PTVEventSoundControl-Setup.exe',
+    // Link cố định trên GitHub Releases (GitHub đếm lượt tải, PTV Key Manager đọc số này): bản mới chỉ cần
+    // thay tệp cùng tên bằng dev/tools/release-downloads.mjs của dự án PTV Studio, không phải sửa web
+    download: 'https://github.com/monterstudioptv-cpu/ptv-downloads/releases/download/tai-ve/PTVEventSoundControl-Setup.exe',
   },
   {
     id: 'ptv-studio',
@@ -54,8 +57,8 @@ window.PTV_APPS = [
     color: '#e4b344',
     from: '30k/tháng',
     trial: '30 ngày',
-    // Link cố định như bản âm thanh: bản mới chỉ cần đẩy đè tệp cùng tên lên kho ptv-downloads
-    download: 'https://github.com/monterstudioptv-cpu/ptv-downloads/raw/main/PTV-Studio-Setup.exe',
+    // Link cố định trên GitHub Releases như bản âm thanh
+    download: 'https://github.com/monterstudioptv-cpu/ptv-downloads/releases/download/tai-ve/PTV-Studio-Setup.exe',
   },
   {
     id: 'live-control',
